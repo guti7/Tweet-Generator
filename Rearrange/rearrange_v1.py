@@ -1,6 +1,6 @@
 import random
 
-
+# Randomly rearranges a set of words provided as command-line arguments
 def reorder(list):
     result = []
     while len(list) > 1:
