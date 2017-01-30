@@ -5,7 +5,7 @@ quotes = ("It's just a flesh wound.",
           "THIS IS AN EX-PARROT!!")
 
 
-def random_pythong_quote():
+def random_python_quote():
     rand_index = random.randint(0, len(quotes) - 1)
     return quotes[rand_index]
 
@@ -13,5 +13,5 @@ def random_pythong_quote():
 # Using a conditiona that will only run certain code if the current
 # process file is the currenct source file
 if __name__ == '__main__':
-    quote = random_pythong_quote()
+    quote = random_python_quote()
     print(quote)
