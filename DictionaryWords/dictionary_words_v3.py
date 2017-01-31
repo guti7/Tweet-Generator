@@ -12,9 +12,9 @@
 #       We use the file located in macOS at /usr/share/dict/words
 import random
 
-def get_data():
+
+def get_words_list():
     with open('/usr/share/dict/words', 'r') as file:
-        # words = list(file.read().strip())
         filedata = file.readlines()
         return filedata
     # file closed
@@ -27,9 +27,11 @@ def get_random_words(array, count):
         count = len(array)
 
     for i in range(0, count):
-        random_index = random.randint(0, (len(array) - 1) * 1000) % len(array)
+        range_max = len(array) - 1 * 1000
+        random_index = random.randint(0, range_max) % len(array)
         collection.append(array[random_index].strip())
-        array.remove(array[random_index])
+        # repetition is trivial
+        # array.remove(array[random_index])
     return collection
 
 
@@ -43,8 +45,8 @@ if __name__ == "__main__":
         exit(0)
 
     # program continues
-    data = get_data()
+    word_dictionary = get_words_list()
     count = int(sys.argv[1])
-    words = get_random_words(data, count)
-    for word in words:
+    chosen_words = get_random_words(word_dictionary, count)
+    for word in chosen_words:
         print word,
