@@ -12,6 +12,9 @@
 #            fish
 import random
 import sys
+import timeit
+
+start_time = timeit.default_timer()
 
 def probability_distribution(histogram):
     words_probability_distr = {}
@@ -21,17 +24,16 @@ def probability_distribution(histogram):
     return words_probability_distr
 
 
-def get_random_word(histogram):
-    # range_max = len(histogram) - 1
-    # random_index = random.randint(0, range_max)
-    # # better than histogram.keys() ? returns list of keys(words)
-    # list_histogram = histogram.items()
-    # word_tuple = list_histogram[random_index]
-    # word = word_tuple[0]
-    word = random.choice([k for k in histogram for _ in range(histogram[k])])
+def get_random_word(words_list):
+    word = random.choice(words_list)
     return word
 
+def get_complete_list(histogram):
+    words = [k for k in histogram for _ in range(histogram[k])]
+    return words
 
+
+# Document arguments
 def get_words_list(filename):
     with open(filename, 'r') as file:
         document_file = file.readlines()
@@ -48,8 +50,28 @@ def parse_sentences(text_file):
 
 
 def histogram(source_text):
-    words_dictionary = set(source_text)
-    return {word: source_text.count(word) for word in words_dictionary}
+    dictionary = dict()
+    for word in source_text:
+        lowercase_word = word.lower()
+        if lowercase_word == '':
+            continue
+        if lowercase_word not in dictionary:
+            dictionary[lowercase_word] = 1
+        else:
+            dictionary[lowercase_word] += 1
+    return dictionary
+
+def print_sample(times, words_list):
+    sample = {}
+    for _ in range(times):
+        word = get_random_word(words_list)
+        if word in sample:
+            sample[word] += 1
+        else:
+            sample[word] = 1
+
+    for key, value in sample.iteritems():
+        print '%-15s : %5s' % (key, value)
 
 # main
 if __name__ == '__main__':
@@ -61,10 +83,15 @@ if __name__ == '__main__':
 
     # program continues
     filename = sys.argv[1]
+
     words_list = get_words_list(filename)
     histogram = histogram(words_list)
-    print get_random_word(histogram)
-    print histogram
     probabilities = probability_distribution(histogram)
-    for k, v in probabilities.iteritems():
-        print "%-4s => %5.3f" % (k, v) # '{} {}'.format(k, v)
+    # for k, v in probabilities.iteritems():
+        # print "%-20s => %5.10f" % (k, v) # '{} {}'.format(k, v)
+
+    complete_list = get_complete_list(histogram)
+    print_sample(100000, complete_list)
+
+    elapsed = timeit.default_timer() - start_time
+    print "Elapsed Time: ", elapsed
