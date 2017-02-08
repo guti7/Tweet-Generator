@@ -107,7 +107,7 @@ if __name__ == "__main__":
     print "Elapsed Time: ", elapsed
 
     print 'Alphabetical:'
-    # print_histogram_alphabetized(histo)
+    print_histogram_alphabetized(histo)
     print '--------------'
     print 'Descending Frequency:'
     print_descending_frequency(histo)

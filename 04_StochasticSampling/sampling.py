@@ -115,7 +115,7 @@ def print_sample(times, histogram):
         print '%-15s : %10d' % (word, freq)
 
 
-# Test method for weighted selected word)
+# Test method for weighted selected word
 def print_sample_word(times, histogram, word):
     sample = {word: 0}
     for _ in range(times):  # doesn't include the last value
