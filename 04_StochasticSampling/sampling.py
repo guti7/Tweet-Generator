@@ -90,7 +90,7 @@ def get_random_word_weigthed(histogram):
 # Print the histogram in descending frequency order:
 def print_descending_frequency(histogram):
     # order only by count - not by count then word
-    frequency_listogram = sorted(histogram.iteritems(), key= lambda (word, count): (count), reverse = True)
+    frequency_listogram = sorted(histogram.iteritems(), key = lambda (word, count) : (count), reverse = True)
     print_histogram(frequency_listogram)
 
 

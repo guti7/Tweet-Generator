@@ -9,11 +9,23 @@ def hello_world():
 
 @app.route('/word')
 def get_word():
-    words_list = get_words_list('siddh10.txt')
+    lines_list = get_lines_list('sidd_clean.txt')
+    words_list = get_words_list(lines_list)
     histo = histogram(words_list)
-    complete =  get_complete_list(histo)
-    word = get_random_word(complete)
+    word = get_random_word_weigthed(histo)
     return word
+
+@app.route('/sentence')
+def get_sentence():
+    lines_list = get_lines_list('sidd_clean.txt')
+    words_list = get_words_list(lines_list)
+    histo = histogram(words_list)
+
+    sentence = ''
+    for _ in range(15):
+        word = get_random_word_weigthed(histo)
+        sentence += word + ' '
+    return sentence
 
 
 if __name__ == '__name__':
