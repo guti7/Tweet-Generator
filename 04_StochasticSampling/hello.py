@@ -28,5 +28,5 @@ def get_sentence():
     return sentence
 
 
-if __name__ == '__name__':
+if __name__ == '__main__':
     app.run()
